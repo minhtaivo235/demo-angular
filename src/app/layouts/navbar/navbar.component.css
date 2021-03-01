@@ -1,0 +1,12 @@
+.login-link {
+    color: black;
+    text-decoration: none;
+}
+.invalid-text {
+    margin: .4rem 0;
+    color: red;
+    font-style: italic;
+}
+.invalid-input {
+    border: 1px solid red;
+}
