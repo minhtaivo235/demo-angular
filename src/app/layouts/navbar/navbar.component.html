@@ -10,14 +10,14 @@
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" (click)="increment()">Link</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Dropdown
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" >Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
@@ -43,7 +43,7 @@
           </button>
           <p *ngIf="statusForm" [ngClass]="statusForm ? 'invalid-text' : ''">Invalid form</p>   
           <p *ngIf="statusUser" [ngClass]="statusUser ? 'invalid-text' : ''">Incorrect username or password</p>   
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (submit)="emitChangeStatusLogin($event)">
             <div class="form-group">
               <label for="username">Username</label>
               <input type="email" class="form-control" formControlName="userName" 

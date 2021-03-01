@@ -9,11 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminModule } from './admin/admin.module';
+import { NavbarAdminComponent } from './layouts/navbar-admin/navbar-admin.component';
+import { StoreModule } from '@ngrx/store';
+import { counterReducer, userReducer } from './store/user/user.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    NavbarAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +28,7 @@ import { AdminModule } from './admin/admin.module';
     NgbModule,
     ReactiveFormsModule,
     AdminModule,
+    StoreModule.forRoot({ user: userReducer}),
   ],
   providers: [],
   bootstrap: [AppComponent]
