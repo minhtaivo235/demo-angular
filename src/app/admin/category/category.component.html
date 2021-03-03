@@ -1,1 +1,25 @@
-<p>category works!</p>
+<div class="container">
+  <h2 class="mt-4">Category</h2>
+  <button type="button" class="btn btn-primary my-3 float-right" (click)="openModal(0)">Add</button>
+  <table class="table table-bordered table-striped mt-5 mx-auto">
+    <thead>
+      <tr class="row">
+        <th class="text-center col-2">#</th>
+        <th class="text-center col-8">Category Name</th>
+        <th class="text-center col-2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row" *ngFor="let category of categories; index as i">
+        <th class="col-2 text-center">{{ i + 1 }}</th>
+        <td class="col-8 text-center">{{ category.name }}</td>
+        <td class="col-2 text-center">
+          <button type="button" (click)="openModal(category.id)" class="btn btn-primary mr-3">Update</button>
+          <button type="button" (click)="delete(category.id)" class="btn btn-danger">X</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

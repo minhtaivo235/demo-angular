@@ -7,7 +7,8 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  statusLogin = false;
+  
+  
 
   constructor( 
      private storage:LocalStorageService, private session: SessionStorageService) { }
@@ -15,7 +16,5 @@ export class AppComponent implements OnInit {
   ngOnInit(){
    
   }
-  changeStatusLogin(status) {
-    this.statusLogin = status;
-  }
+  
 }

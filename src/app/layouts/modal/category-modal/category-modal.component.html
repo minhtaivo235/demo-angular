@@ -1,0 +1,12 @@
+<div class="modal-body">
+    <button type="button" class="close mb-2" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="form-group">
+        <label for="categoryName">Category name</label>
+        <input type="text" class="form-control" [(ngModel)]="category.name" 
+            id="categoryName">
+    </div>    
+    <button type="submit" (click)="passBackData()" class="btn btn-outline-primary">Submit</button>
+
+</div>

@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @Output('changeStatusLogin') change = new EventEmitter<boolean>();
+  
 
   loginForm = new FormGroup({
     userName: new FormControl('', Validators.required),
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private userService: UserService, 
     private router: Router, private storage:LocalStorageService, private auth: AuthService, 
-    private session: SessionStorageService, private store: Store<{ count: number }>, 
+     private store: Store<{ count: number }>, 
     private userStore: Store<{user: User}>) {
       
       // this.user$ = store.select('user');
@@ -69,14 +69,11 @@ export class NavbarComponent implements OnInit {
     })    
   }
 
-  emitChangeStatusLogin(event) {
-    this.change.emit(true);
-  }
+  
 
   checkAndNavWithRole(role) {
       if(role == ROLE_ADMIN) {
-        this.storage.store('role', role);        
-        this.session.store('role', role);        
+        this.storage.store('role', role);                        
         this.router.navigate(['admin','category']); 
       } else {
         this.router.navigate(['/']);

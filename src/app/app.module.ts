@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { RouterModule } from '@angular/router';
@@ -12,15 +13,27 @@ import { AdminModule } from './admin/admin.module';
 import { NavbarAdminComponent } from './layouts/navbar-admin/navbar-admin.component';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer, userReducer } from './store/user/user.reducer';
+import { HomeComponent } from './layouts/home/home.component';
+import { AdminComponent } from './layouts/admin/admin.component';
+import { CategoryModalComponent } from './layouts/modal/category-modal/category-modal.component';
+
+
+const store = {
+  user: userReducer
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    NavbarAdminComponent
+    NavbarAdminComponent,
+    HomeComponent,
+    AdminComponent,
+    CategoryModalComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     NgxWebstorageModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
@@ -28,9 +41,11 @@ import { counterReducer, userReducer } from './store/user/user.reducer';
     NgbModule,
     ReactiveFormsModule,
     AdminModule,
-    StoreModule.forRoot({ user: userReducer}),
+    StoreModule.forRoot(store),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ CategoryModalComponent ]
+
 })
 export class AppModule { }
