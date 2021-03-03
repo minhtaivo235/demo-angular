@@ -21,6 +21,7 @@ export class CategoryComponent implements OnInit {
     id: 0,
     name: ''
   };
+  isAsc = false;
 
   constructor(private categoryService: CategoryService, private modalService: NgbModal) { }
 
@@ -67,7 +68,40 @@ export class CategoryComponent implements OnInit {
           this.categories.splice(index, 1);
         }       
       });   
-    });
+    });    
+  }
+
+  sort() {
+    this.isAsc = !this.isAsc;
+    if(this.isAsc) {
+      this.categories.sort(function(a, b) {
+        var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
+        var nameB = b.name.toUpperCase(); // bỏ qua hoa thường
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        // name trùng nhau
+        return 0;
+      });
+    } else {
+      this.categories.sort(function(a, b) {
+        var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
+        var nameB = b.name.toUpperCase(); // bỏ qua hoa thường
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+      
+        // name trùng nhau
+        return 0;
+      });
+    }
     
   }
 
