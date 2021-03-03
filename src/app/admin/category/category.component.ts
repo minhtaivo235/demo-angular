@@ -63,8 +63,10 @@ export class CategoryComponent implements OnInit {
     }
   }
   delete(id) {
-    this.categoryService.deleteCategory(id).subscribe(data => console.log(data));
-    this.load();
+    this.categoryService.deleteCategory(id).subscribe(data => {
+      this.load()
+    });
+    
   }
 
 
