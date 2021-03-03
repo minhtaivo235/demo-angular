@@ -15,7 +15,7 @@ import { selectFeatureUser } from '../../store/user/user.selector';
 })
 export class NavbarAdminComponent implements OnInit {
   userAsyn: Observable<User>;
-  user: User;
+  user: any;
   constructor(private store: Store<{ user: User }>, private router: Router, private route: ActivatedRoute, private storage:LocalStorageService) {
   } 
   
@@ -26,7 +26,11 @@ export class NavbarAdminComponent implements OnInit {
     // this.userAsyn.subscribe(data => {
     //   this.user = {...data};
     // })   
-    this.loadData();       
+    
+    this.user = {...this.storage.retrieve('profile')};
+    console.log(this.user);
+    
+          
   }
   loadData() {
     this.store.select(selectFeatureUser).subscribe(data => this.user = {...data})

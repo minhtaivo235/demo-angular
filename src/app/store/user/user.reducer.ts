@@ -1,29 +1,3 @@
-// import { createReducer, on } from '@ngrx/store';
-// import { saveUser } from './user.actions';
-
-
-// export const initialState: User = {
-//     username: '',
-//     password: '',
-//     role: '',
-// } 
-
-// const _userReducer = createReducer(
-//   initialState,
-//   on(saveUser, (state, {user}) => ({
-//       username: user.username,
-//       password: user.password,
-//       role: user.role
-//   })
-//   ),
-
-// );
-
-// export function userReducer(state: User, action) {
-//   return _userReducer(state, action);
-// }
-
-
 import { createReducer, on } from '@ngrx/store';
 import { increment, decrement, reset, storeUser, resetUser } from './user.actions';
 

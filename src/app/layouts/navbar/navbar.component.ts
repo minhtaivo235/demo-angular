@@ -59,6 +59,7 @@ export class NavbarComponent implements OnInit {
     this.userService.login(user).subscribe(data => {
       if(data) {
         this.checkAndNavWithRole(data.role);
+        this.storage.store('profile', data);
         console.log(data);
         this.userStore.dispatch(storeUser(data));                               
         console.log('login succes');
@@ -74,7 +75,7 @@ export class NavbarComponent implements OnInit {
   checkAndNavWithRole(role) {
       if(role == ROLE_ADMIN) {
         this.storage.store('role', role);                        
-        this.router.navigate(['admin','category']); 
+        this.router.navigate(['admin']); 
       } else {
         this.router.navigate(['/']);
       }      
