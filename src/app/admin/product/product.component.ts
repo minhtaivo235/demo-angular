@@ -1,3 +1,5 @@
+import { CategoryService } from './../../service/category.service';
+import { ProductService } from './../../service/product.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-
-  constructor() { }
+  products: any;
+  categories: any;
+  constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.productService.getListCategory().subscribe(data => {
+      this.products = [...data];
+    })
+    this.categoryService.getListCategory().subscribe(data => {
+      this.categories = [...data];
+    })
   }
 
 }
