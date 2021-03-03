@@ -25,14 +25,12 @@ export class CategoryComponent implements OnInit {
   constructor(private categoryService: CategoryService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.load();
-  }
-  load() {
     this.categoryService.getListCategory().subscribe(data => {
-      this.categories = data;
-      console.log(data);
-      
+      this.categories = [...data];            
     })
+    
+    
+    
   }
 
   openModal(id) {
@@ -64,7 +62,11 @@ export class CategoryComponent implements OnInit {
   }
   delete(id) {
     this.categoryService.deleteCategory(id).subscribe(data => {
-      this.load()
+      this.categories.forEach((element, index) => {
+        if(element.id == id) {
+          this.categories.splice(index, 1);
+        }       
+      });   
     });
     
   }

@@ -18,10 +18,10 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getListCategory(): Observable<Category>{
+  getListCategory(): Observable<any>{
     return this.http.get<Category>(this.urlAPI);
   }
-  getOneCategory(id): Observable<Category>{
+  getOneCategory(id): Observable<any>{
     return this.http.get<Category>(this.urlAPI + '' + id);
   }
   updateCategory(id, data): Observable<any>{
