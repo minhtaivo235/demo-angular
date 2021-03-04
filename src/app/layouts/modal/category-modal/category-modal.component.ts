@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class CategoryModalComponent implements OnInit {
   @Input() public category;
+  name: any;
   // @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   constructor(public activeModal: NgbActiveModal) { }
@@ -15,9 +16,9 @@ export class CategoryModalComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.category);
   }
-  passBackData() {
+  passBackData(name) {
     // this.passEntry.emit(this.category);
-    this.activeModal.close(this.category);
+    this.activeModal.close(name);
   }
 
 }

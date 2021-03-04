@@ -1,8 +1,9 @@
+import { LocalStorageService } from 'ngx-webstorage';
 import { Product } from './../../../model/product.model';
 import { CategoryService } from './../../../service/category.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ProductService } from './../../../service/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -12,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
+  user: any;
   product: Product = {
     categoryId: 0,
     name: '',
@@ -30,14 +32,17 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private storage:LocalStorageService) { }
 
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     // this.productService.getProductById(id);
-
+    console.log(this.route.snapshot);
+    
     this.getAPI(id);
     // console.log(this.productForm.value);
 
@@ -66,6 +71,18 @@ export class ProductDetailComponent implements OnInit {
 
   get form() {
     return this.productForm.controls;
+  }
+
+  onSubmit(id) {
+    this.user = {...this.storage.retrieve('profile')};
+    const req = {
+      ...this.productForm.value,
+      "createBy": this.user.userName.toUpperCase()
+    }
+    this.productService.updateProduct(id, req).subscribe(data => console.log(data)
+    )
+    this.router.navigate(['admin','product']);
+    
   }
 
   changeFormatDate(date) {

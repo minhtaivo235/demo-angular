@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h2 class="mb-5">Product Detail</h2>
-    <form [formGroup]="productForm">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit(product.id)">
         <div class="form-row mb-3">
             <div class="col-3 text-right size-label mr-3"><label for="name">Name Product</label></div>
             <div class="col-3 float-left"><input type="text" formControlName="name" class="form-control" id="name"></div>
@@ -32,8 +32,7 @@
         </div>
         <div class="form-row mb-3">
             <div class="col-6"></div>
-            <div class="col"><button class="btn btn-outline-success ">Save</button></div>
-           
+            <div class="col"><button class="btn btn-outline-primary ">Save</button></div>           
         </div> 
         
     </form>

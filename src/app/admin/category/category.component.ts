@@ -43,8 +43,16 @@ export class CategoryComponent implements OnInit {
       })[0];
       modalRef.componentInstance.category = this.category;      
       modalRef.result.then((result) => {
-        data.name = result.name;        
-        this.categoryService.updateCategory(result.id, data).subscribe(data => console.log(data))
+        data.name = result;        
+        this.categoryService.updateCategory(id, data).subscribe(data => {
+          this.categories.forEach((element, index) => {
+            if(element.id == id) {
+              this.categories[index] = data;
+            }       
+          }); 
+        })
+      },(reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
     } else { // will create
       this.category = { id: 0, name: '' };
@@ -59,6 +67,16 @@ export class CategoryComponent implements OnInit {
           
         }
       });
+    }
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
     }
   }
   delete(id) {

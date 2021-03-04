@@ -17,4 +17,7 @@ export class ProductService {
   getProductById(id): Observable<any> {
     return this.http.get<any>(this.urlAPI + '' + id);
   }
+  updateProduct(id, data): Observable<any>{
+    return this.http.put(`${this.urlAPI}${id}`, data, {observe: 'body'})
+  }
 }

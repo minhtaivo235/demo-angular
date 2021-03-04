@@ -5,20 +5,19 @@
       <thead>
         <tr class="row">
           <th class="text-center col-2">#</th>
-          <th class="text-center col-4 product-name" >Product Name</th>
+          <th class="text-center col-5 product-name" >Product Name</th>
           <th class="text-center col-4 category" >Category</th>
-          <th class="text-center col-2"></th>
+          <th class="text-center col-1"></th>
         </tr>
       </thead>
       <tbody>
         <tr class="row" *ngFor="let product of products; index as i">
           <th class="col-2 text-center">{{ i + 1 }}</th>
-          <td class="col-4 text-center" (click)="navProductDetail(product.id)">{{ product.name }}</td>
+          <td class="col-5 text-center name-product" (click)="navProductDetail(product.id)">{{ product.name }}</td>
           <ng-container *ngFor="let category of categories; index as i">
             <td class="col-4 text-center" *ngIf="product.categoryId == category.id">{{ category.name }}</td>
           </ng-container>          
-          <td class="col-2 text-center">
-            <button type="button"  class="btn btn-primary mr-3">Update</button>
+          <td class="col-1 text-center">            
             <button type="button"  class="btn btn-danger">X</button>
           </td>
         </tr>

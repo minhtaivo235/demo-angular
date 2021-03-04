@@ -4,9 +4,9 @@
     </button>
     <div class="form-group">
         <label for="categoryName">Category name</label>
-        <input type="text" class="form-control" [(ngModel)]="category.name" 
+        <input type="text" class="form-control" [ngModel]="category.name" #cateName 
             id="categoryName">
     </div>    
-    <button type="submit" (click)="passBackData()" class="btn btn-outline-primary float-right my-2">Submit</button>
+    <button type="submit" (click)="passBackData(cateName.value)" class="btn btn-outline-primary float-right my-2">Submit</button>
 
 </div>
