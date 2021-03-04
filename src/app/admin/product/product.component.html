@@ -13,7 +13,7 @@
       <tbody>
         <tr class="row" *ngFor="let product of products; index as i">
           <th class="col-2 text-center">{{ i + 1 }}</th>
-          <td class="col-4 text-center">{{ product.name }}</td>
+          <td class="col-4 text-center" (click)="navProductDetail(product.id)">{{ product.name }}</td>
           <ng-container *ngFor="let category of categories; index as i">
             <td class="col-4 text-center" *ngIf="product.categoryId == category.id">{{ category.name }}</td>
           </ng-container>          

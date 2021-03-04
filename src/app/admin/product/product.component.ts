@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CategoryService } from './../../service/category.service';
 import { ProductService } from './../../service/product.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProductComponent implements OnInit {
   products: any;
   categories: any;
-  constructor(private productService: ProductService, private categoryService: CategoryService) { }
+  constructor(private productService: ProductService, private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
     this.productService.getListCategory().subscribe(data => {
@@ -19,6 +20,10 @@ export class ProductComponent implements OnInit {
     this.categoryService.getListCategory().subscribe(data => {
       this.categories = [...data];
     })
+  }
+
+  navProductDetail(id){
+    this.router.navigate(['admin','product',id])
   }
 
 }
