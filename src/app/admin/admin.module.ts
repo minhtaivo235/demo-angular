@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ProductModule } from './product/product.module';
 import { AdminRoutingModule } from './admin-routing.module';
 
 
@@ -9,7 +9,8 @@ import { AdminRoutingModule } from './admin-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ProductModule
   ]
 })
 export class AdminModule { }

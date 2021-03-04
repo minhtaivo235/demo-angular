@@ -11,7 +11,10 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getListCategory(): Observable<any>{
+  getListProduct(): Observable<any>{
     return this.http.get<any>(this.urlAPI);
+  }
+  getProductById(id): Observable<any> {
+    return this.http.get<any>(this.urlAPI + '' + id);
   }
 }

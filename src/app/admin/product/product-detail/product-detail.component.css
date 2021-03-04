@@ -1,3 +1,8 @@
 .size-label {
     font-size: 22px;
 }
+
+.content {
+    font-size: 18px;
+    margin: unset  !important;
+}
