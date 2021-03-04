@@ -1,8 +1,7 @@
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
-import { CategoryComponent } from './category/category.component';
-import { ProductComponent } from './product/product.component';
 import { AdminComponent } from '../layouts/admin/admin.component';
 
 const routes: Routes = [
@@ -11,9 +10,11 @@ const routes: Routes = [
     component: AdminComponent, 
     canActivate: [AuthGuard],
     children: [
-      { path: 'category', component: CategoryComponent,canActivate: [AuthGuard] },
-      { path: 'product', component: ProductComponent,canActivate: [AuthGuard] },
+      { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule)},
+      { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule)},
     ],
+    
+    
   }
 ];
 
