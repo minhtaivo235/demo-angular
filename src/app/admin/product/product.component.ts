@@ -26,4 +26,14 @@ export class ProductComponent implements OnInit {
     this.router.navigate(['admin','product',id])
   }
 
+  delete(id) {
+    this.productService.deleteProduct(id).subscribe(data => {
+      this.products.forEach((element, index) => {
+        if(element.id == id) {
+          this.products.splice(index, 1);
+        }       
+      });   
+    });    
+  }
+
 }

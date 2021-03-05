@@ -1,9 +1,12 @@
+import { PROFILE } from './../../constant';
+import { LocalStorageService } from 'ngx-webstorage';
+import { ConfirmDeleteModalComponent } from './../../layouts/modal/confirm-delete-modal/confirm-delete-modal.component';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Category } from 'src/app/model/category.model';
 import { CategoryService } from '../../service/category.service';
 import { CategoryModalComponent } from '../../layouts/modal/category-modal/category-modal.component';
+
 
 
 @Component({
@@ -23,15 +26,24 @@ export class CategoryComponent implements OnInit {
   };
   isAsc = false;
 
-  constructor(private categoryService: CategoryService, private modalService: NgbModal) { }
+  constructor(private categoryService: CategoryService, private modalService: NgbModal, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.categoryService.getListCategory().subscribe(data => {
       this.categories = [...data];            
     })
-    
-    
-    
+                
+  }
+
+  openPopupDelete(id) {
+    const modalRef = this.modalService.open(ConfirmDeleteModalComponent, { centered: true });
+    modalRef.componentInstance.title = 'category';
+    modalRef.result.then(result => {
+      if(result) {
+        this.delete(id);
+      }
+      
+    })
   }
 
   openModal(id) {
@@ -57,15 +69,16 @@ export class CategoryComponent implements OnInit {
     } else { // will create
       this.category = { id: 0, name: '' };
       modalRef.componentInstance.category = this.category;
-      modalRef.result.then((result) => {
-        if(result.name != '') {
-          data.name = result.name;        
+      modalRef.result.then((result) => {                
+        if(result != '') {
+          data.name = result;                            
           this.categoryService.createCategory(data).subscribe(data => {
             console.log(data);
             this.categories.push(data)
-          })
-          
+          })          
         }
+      },(reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
     }
   }
@@ -79,13 +92,18 @@ export class CategoryComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
   delete(id) {
     this.categoryService.deleteCategory(id).subscribe(data => {
+      console.log(data.message);
+      
       this.categories.forEach((element, index) => {
         if(element.id == id) {
           this.categories.splice(index, 1);
         }       
       });   
+    }, error => {
+      console.log(error);
     });    
   }
 
@@ -93,30 +111,26 @@ export class CategoryComponent implements OnInit {
     this.isAsc = !this.isAsc;
     if(this.isAsc) {
       this.categories.sort(function(a, b) {
-        var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
-        var nameB = b.name.toUpperCase(); // bỏ qua hoa thường
+        var nameA = a.name.toUpperCase(); 
+        var nameB = b.name.toUpperCase(); 
         if (nameA < nameB) {
           return -1;
         }
         if (nameA > nameB) {
           return 1;
-        }
-      
-        // name trùng nhau
+        }             
         return 0;
       });
     } else {
       this.categories.sort(function(a, b) {
-        var nameA = a.name.toUpperCase(); // bỏ qua hoa thường
-        var nameB = b.name.toUpperCase(); // bỏ qua hoa thường
+        var nameA = a.name.toUpperCase();
+        var nameB = b.name.toUpperCase(); 
         if (nameA > nameB) {
           return -1;
         }
         if (nameA < nameB) {
           return 1;
-        }
-      
-        // name trùng nhau
+        }              
         return 0;
       });
     }

@@ -15,7 +15,7 @@
         <td class="col-8 text-center">{{ category.name }}</td>
         <td class="col-2 text-center">
           <button type="button" (click)="openModal(category.id)" class="btn btn-primary mr-3">Update</button>
-          <button type="button" (click)="delete(category.id)" class="btn btn-danger">X</button>
+          <button type="button" (click)="openPopupDelete(category.id)" class="btn btn-danger">X</button>
         </td>
       </tr>
     </tbody>

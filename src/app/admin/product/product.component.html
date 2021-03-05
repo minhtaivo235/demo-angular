@@ -1,7 +1,7 @@
 <div class="container">
     <h2 class="mt-4">Product</h2>
-    <button type="button" class="btn btn-primary my-3 float-right" >Add</button>
-    <table class="table table-bordered table-striped mt-5 mx-auto">
+    <button type="button" class="btn btn-primary my-3 float-right" (click)="navProductDetail(0)">Add</button>
+    <table class="table  table-striped mt-5 mx-auto">
       <thead>
         <tr class="row">
           <th class="text-center col-2">#</th>
@@ -18,7 +18,7 @@
             <td class="col-4 text-center" *ngIf="product.categoryId == category.id">{{ category.name }}</td>
           </ng-container>          
           <td class="col-1 text-center">            
-            <button type="button"  class="btn btn-danger">X</button>
+            <button type="button" (click)="delete(product.id)" class="btn btn-danger">X</button>
           </td>
         </tr>
       </tbody>

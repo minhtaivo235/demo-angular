@@ -15,6 +15,9 @@ import { counterReducer, userReducer } from './store/user/user.reducer';
 import { HomeComponent } from './layouts/home/home.component';
 import { AdminComponent } from './layouts/admin/admin.component';
 import { CategoryModalComponent } from './layouts/modal/category-modal/category-modal.component';
+import { ConfirmDeleteModalComponent } from './layouts/modal/confirm-delete-modal/confirm-delete-modal.component';
+
+
 
 
 const store = {
@@ -28,7 +31,10 @@ const store = {
     NavbarAdminComponent,
     HomeComponent,
     AdminComponent,
-    CategoryModalComponent
+    CategoryModalComponent,
+    ConfirmDeleteModalComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,7 @@ const store = {
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ CategoryModalComponent ]
+  entryComponents: [ CategoryModalComponent, ConfirmDeleteModalComponent ]
 
 })
 export class AppModule { }

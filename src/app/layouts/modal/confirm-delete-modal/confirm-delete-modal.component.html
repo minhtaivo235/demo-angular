@@ -1,0 +1,10 @@
+<div class="modal-body">
+    <button type="button" class="close mb-2" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h3>Do you want delete this {{title}}?</h3>   
+</div>
+<div class="modal-footer">    
+    <button type="submit" (click)="passBackData(true)" class="btn btn-outline-danger float-right my-2 mx-3">Yes</button>
+    <button type="submit" (click)="passBackData(false)" class="btn btn-outline-primary float-right my-2 mx-3">No</button>
+</div>

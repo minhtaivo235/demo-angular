@@ -20,4 +20,10 @@ export class ProductService {
   updateProduct(id, data): Observable<any>{
     return this.http.put(`${this.urlAPI}${id}`, data, {observe: 'body'})
   }
+  createProduct(data): Observable<any> {
+    return this.http.post(this.urlAPI, data, {observe: 'body'})
+  }
+  deleteProduct(id):Observable<any> {
+    return this.http.delete(`${this.urlAPI}${id}`, {observe: 'body'})
+  }
 }

@@ -39,34 +39,27 @@ export class ProductDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    // this.productService.getProductById(id);
-    console.log(this.route.snapshot);
+    const id = parseInt(this.route.snapshot.paramMap.get('id'));    
     
     this.getAPI(id);
-    // console.log(this.productForm.value);
-
+    
   }
 
   getAPI(id) {
     this.categoryService.getListCategory().subscribe(category => {
       this.categories = [...category];
     });
-    this.productService.getProductById(id).subscribe(product => {
-      this.product = { ...product };
-      this.form['categoryId'].setValue(product.categoryId);
-      this.form['name'].setValue(product.name);
-      this.form['price'].setValue(product.price);
-      // this.form['expDate'].setValue(this.ChangeFormateDate(product.expDate));
-      this.form['expDate'].setValue(this.changeFormatDate(product.expDate));
-      this.form['createBy'].setValue(product.createBy);
-
-
-
-      // console.log(this.product);
-      // console.log(this.productForm.value);
-
-    });
+    if (id) {      
+      this.productService.getProductById(id).subscribe(product => {
+        this.product = { ...product };
+        this.form['categoryId'].setValue(product.categoryId);
+        this.form['name'].setValue(product.name);
+        this.form['price'].setValue(product.price);
+        // this.form['expDate'].setValue(this.ChangeFormateDate(product.expDate));
+        this.form['expDate'].setValue(this.changeFormatDate(product.expDate));
+        this.form['createBy'].setValue(product.createBy);     
+      });
+    } 
   }
 
   get form() {
@@ -79,8 +72,13 @@ export class ProductDetailComponent implements OnInit {
       ...this.productForm.value,
       "createBy": this.user.userName.toUpperCase()
     }
-    this.productService.updateProduct(id, req).subscribe(data => console.log(data)
-    )
+    if (id) {
+      this.productService.updateProduct(id, req).subscribe(data => console.log(data)
+      )
+    } else {
+      this.productService.createProduct(req).subscribe(data => console.log(data)
+      )
+    }
     this.router.navigate(['admin','product']);
     
   }
