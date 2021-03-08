@@ -27,7 +27,7 @@ export class NavbarAdminComponent implements OnInit {
     //   this.user = {...data};
     // })   
     
-    this.user = {...this.storage.retrieve('profile')};
+    this.user = this.storage.retrieve('profile');
     console.log(this.user);
     
           

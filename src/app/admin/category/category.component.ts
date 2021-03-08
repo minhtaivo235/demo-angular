@@ -94,7 +94,7 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id) {
-    this.categoryService.deleteCategory(id).subscribe(data => {
+    const subscription = this.categoryService.deleteCategory(id).subscribe(data => {
       console.log(data.message);
       
       this.categories.forEach((element, index) => {
@@ -104,7 +104,7 @@ export class CategoryComponent implements OnInit {
       });   
     }, error => {
       console.log(error);
-    });    
+    });        
   }
 
   sort() {

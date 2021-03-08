@@ -15,6 +15,8 @@ export class CategoryModalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.category);
+    console.log();
+    
   }
   passBackData(name) {
     // this.passEntry.emit(this.category);

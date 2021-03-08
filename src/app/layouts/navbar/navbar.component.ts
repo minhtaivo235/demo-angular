@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   
 
   loginForm = new FormGroup({
-    userName: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
   closeResult = '';
@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit {
 
   onSubmit() {
     const user = {
-      userName: this.loginForm.value.userName,
+      username: this.loginForm.value.username,
       password: this.loginForm.value.password
     }
     if(this.loginForm.status === 'INVALID') {
@@ -58,8 +58,10 @@ export class NavbarComponent implements OnInit {
     
     this.userService.login(user).subscribe(data => {
       if(data) {
-        this.checkAndNavWithRole(data.role);
-        this.storage.store('profile', data);
+        this.checkAndNavWithRole(data.profile.role);
+        this.storage.store('profile', data.profile);
+        this.storage.store('accessToken', data.accessToken);
+        this.storage.store('refreshToken', data.refreshToken);
         console.log(data);
         this.userStore.dispatch(storeUser(data));                               
         console.log('login succes');

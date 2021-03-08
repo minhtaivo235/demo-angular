@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ProductService } from './../../../service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -46,20 +47,37 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getAPI(id) {
-    this.categoryService.getListCategory().subscribe(category => {
-      this.categories = [...category];
-    });
-    if (id) {      
-      this.productService.getProductById(id).subscribe(product => {
+  
+    // this.categoryService.getListCategory().subscribe(category => {
+    //   this.categories = [...category];
+    // });
+    if (id) {  
+      forkJoin([this.categoryService.getListCategory(), this.productService.getProductById(id)]).subscribe(([category, product]) => {
+        this.categories = [...category];
         this.product = { ...product };
         this.form['categoryId'].setValue(product.categoryId);
         this.form['name'].setValue(product.name);
         this.form['price'].setValue(product.price);
         // this.form['expDate'].setValue(this.ChangeFormateDate(product.expDate));
         this.form['expDate'].setValue(this.changeFormatDate(product.expDate));
-        this.form['createBy'].setValue(product.createBy);     
-      });
+        this.form['createBy'].setValue(product.createBy); 
+      })
+    
+      // this.productService.getProductById(id).subscribe(product => {
+      //   this.product = { ...product };
+      //   this.form['categoryId'].setValue(product.categoryId);
+      //   this.form['name'].setValue(product.name);
+      //   this.form['price'].setValue(product.price);
+      //   // this.form['expDate'].setValue(this.ChangeFormateDate(product.expDate));
+      //   this.form['expDate'].setValue(this.changeFormatDate(product.expDate));
+      //   this.form['createBy'].setValue(product.createBy);     
+      // });
     } 
+    else {
+      this.categoryService.getListCategory().subscribe(category => {
+        this.categories = [...category];
+      })
+    }
   }
 
   get form() {
@@ -70,7 +88,7 @@ export class ProductDetailComponent implements OnInit {
     this.user = {...this.storage.retrieve('profile')};
     const req = {
       ...this.productForm.value,
-      "createBy": this.user.userName.toUpperCase()
+      "createBy": this.user.username
     }
     if (id) {
       this.productService.updateProduct(id, req).subscribe(data => console.log(data)
@@ -99,6 +117,9 @@ export class ProductDetailComponent implements OnInit {
   //   var p = oldDate.toString().split(/\D/g)
   //   return [p[2], p[1], p[0]].join("/")
   // }
+
+
+  
 }
 
 

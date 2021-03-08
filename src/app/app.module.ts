@@ -1,6 +1,8 @@
+import { CategoryService } from './service/category.service';
+import { HttpConfigInterceptor } from './auth/httpconfig.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +43,7 @@ const store = {
     FormsModule,
     NgxWebstorageModule.forRoot(),
     HttpClientModule,
+    
     AppRoutingModule,
     RouterModule,
     NgbModule,
@@ -48,7 +51,10 @@ const store = {
     AdminModule,
     StoreModule.forRoot(store),
   ],
-  providers: [],
+  providers: [
+    
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ CategoryModalComponent, ConfirmDeleteModalComponent ]
 

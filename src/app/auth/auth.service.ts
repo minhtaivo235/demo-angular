@@ -13,12 +13,11 @@ export class AuthService {
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;  
-  constructor(private storage: LocalStorageService, private session: SessionStorageService) { }
+  constructor(private storage: LocalStorageService) { }
 
   login(): Observable<boolean> {
-    const statusLoginLocal = this.storage.retrieve('role');    
-    const statusLoginSession = this.storage.retrieve('role');    
-    if(statusLoginLocal === ROLE_ADMIN || statusLoginSession === ROLE_ADMIN) { 
+    const statusLoginLocal = this.storage.retrieve('role');           
+    if(statusLoginLocal === ROLE_ADMIN) { 
       console.log('login with admin');      
       return of(true).pipe(
         tap(val => this.stateLoginWithRole = ROLE_ADMIN)
@@ -32,7 +31,6 @@ export class AuthService {
 
   logout(): void {
     this.stateLoginWithRole = '';
-    this.storage.store('role', '');
-    this.session.store('role', '');
+    this.storage.store('role', '');    
   }
 }
